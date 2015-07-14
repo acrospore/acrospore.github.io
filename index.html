@@ -77,6 +77,23 @@
             </div>
         </div>
     </div>
+    <div class="dontshow" id="game2">
+        <h2>Game</h2>
+        <p id="timer">0:00</p>
+        <p>
+            <span id="text1"></span><br>
+            <span id="text2"></span><br>
+            <span id="text3"></span><br>
+            <span id="text4"></span><br>
+            <span id="text5"></span><br>
+            <span id="text6"></span><br>
+            <span id="text7"></span><br>
+            <span id="text8"></span><br>
+            <span id="text9"></span><br>
+            <span id="text10"></span><br>
+            
+        </p>
+    </div>
     
     <script>
         $(document).ready(ayylmao());
@@ -89,6 +106,17 @@
             //variables
             var page = "#firstslide";
             var champions = ["Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "Blitzcrank", "Brand", "Caitlyn", "Cassiopeia", "Cho'gath", "Corki", "Dr. Mundo", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Irelia", "Janna", "Jarvan IV", "Jax", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kennen", "Kog'Maw", "LeBlanc", "Lee Sin", "Leona", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "Master Yi", "Miss Fortune", "Mordekaiser", "Morgana", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Pantheon", "Poppy", "Rammus", "Renekton", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Talon", "Taric", "Teemo", "Tristana", "Trundle", "Trydamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xerath", "Xin Zhao", "Yorick", "Ziggs", "Zilean"];
+            var player1; //left
+            var player2; //right
+            var player3; //right
+            var player4; //left
+            var player5; //left
+            var player6; //right
+            var player7; //right
+            var player8; //left
+            var player9; //left
+            var player10; //right
+            var time = 0;
             
             //hide every other page
             $(".dontshow").hide().css("opacity","0");
@@ -106,6 +134,109 @@
                 }, 500);
                 page = $(this).attr("show");
             });
+            
+            //ADD TEXT FOR EVENT ON TEXT1, TEXT2, ETC
+            function newEvent(text){
+                $("#text10").text( $("#text9").text() );
+                $("#text9").text( $("#text8").text() );
+                $("#text8").text( $("#text7").text() );
+                $("#text7").text( $("#text6").text() );
+                $("#text6").text( $("#text5").text() );
+                $("#text5").text( $("#text4").text() );
+                $("#text4").text( $("#text3").text() );
+                $("#text3").text( $("#text2").text() );
+                $("#text2").text( $("#text1").text() );
+                $("#text1").text( text );
+            }
+            
+            function gameslide2(){
+                //TIMER
+                var timerFunction = setInterval(function(){
+                    time += 1;
+                    var minutes = Math.floor(time / 60);
+                    var seconds1 = minutes * 60;
+                    var seconds2 = time - seconds1;
+                    var seconds = seconds2 % 60;
+                    if( seconds < 10 ){
+                        $("#timer").text( minutes + ":0" + seconds );
+                    } else {
+                        $("#timer").text( minutes + ":" + seconds );
+                    }
+                    
+                    //RANDOM EVENTS
+                    if( minutes == 0 && seconds == 50 ){
+                        var random = Math.floor( Math.random() * 4 ) + 1
+                        if( random == 1 ){
+                            newEvent("Blue team has invaded Red team!");
+                            random = Math.floor( Math.random() * 2 ) + 1
+                            if( random == 1 ){
+                                setTimeout(function(){
+                                    newEvent("It was successful, giving Blue team a kill.");
+                                }, 5000);
+                            } else {
+                                random = Math.floor( Math.random() * 2 ) + 1
+                                if( random == 1 ){
+                                    setTimeout(function(){
+                                        newEvent("It was unsuccessful, nobody died.");
+                                    }, 5000);
+                                } else {
+                                    setTimeout(function(){
+                                        newEvent("It was unsuccessful, giving Red team a kill.");
+                                    }, 5000);
+                                }
+                            }
+                        } else if( random == 2 ){
+                            newEvent("Red team has invaded Blue team!");
+                            random = Math.floor( Math.random() * 2 ) + 1
+                            if( random == 1 ){
+                                setTimeout(newEvent("It was successful, giving Red team a kill."), 5000);
+                            } else {
+                                random = Math.floor( Math.random() * 2 ) + 1
+                                if( random == 1 ){
+                                    setTimeout(function(){
+                                        newEvent("It was unsuccessful, nobody died.");
+                                    }, 5000);
+                                } else {
+                                    setTimeout(function(){
+                                        newEvent("It was unsuccessful, giving Blue team a kill.");
+                                    }, 5000);
+                                }
+                            }
+                        } else if( random == 3 ){
+                            return false;
+                        } else if( random == 4 ){
+                            newEvent("Both teams invaded!");
+                            random = Math.floor( Math.random() * 5 ) + 1
+                            setTimeout(function(){
+                                switch(random){
+                                    case 1:
+                                        newEvent("Both teams started fighting and ended up with a 1-1 trade.");
+                                        break;
+                                    case 2:
+                                        newEvent("Both teams started fighting and Red team ended up getting a kill!");
+                                        break;
+                                    case 3:
+                                        newEvent("Both teams started fighting and Blue team ended up getting a kill!");
+                                        break;
+                                    case 4:
+                                        newEvent("Both teams started fighting, but backed off. No deaths occurred.");
+                                        break;
+                                    case 5:
+                                        newEvent("Both teams invaded different buffs so they completely miss each other!");
+                                        break;
+                                }
+                            },5000);
+                        }
+                    }
+                    if( minutes == 1 && seconds == 30 ){
+                        newEvent("Minions have spawned.");
+                    }
+                        
+                }, 1000);
+                
+                //WELCOME
+                newEvent("Welcome to Summoner's Rift.");
+            }
             
             $("input[show='#game1']").click(function(){
                 setTimeout(function(){
@@ -159,6 +290,7 @@
                 setTimeout(function(){
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick1").text(champions[randomnum]);
+                    player1 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     $("#message").text("Player 2 and Player 3's turn to pick.");
                     $("#pick1").toggleClass("picking");
@@ -169,9 +301,11 @@
                 setTimeout(function(){
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick2").text(champions[randomnum]);
+                    player2 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick3").text(champions[randomnum]);
+                    player3 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     $("#message").text("Player 4 and Player 5's turn to pick.");
                     $("#pick2").toggleClass("picking");
@@ -182,9 +316,11 @@
                 setTimeout(function(){
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick4").text(champions[randomnum]);
+                    player4 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick5").text(champions[randomnum]);
+                    player5 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     $("#message").text("Player 6 and Player 7's turn to pick.");
                     $("#pick4").toggleClass("picking");
@@ -195,9 +331,11 @@
                 setTimeout(function(){
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick6").text(champions[randomnum]);
+                    player6 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick7").text(champions[randomnum]);
+                    player7 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     $("#message").text("Player 8 and Player 9's turn to pick.");
                     $("#pick6").toggleClass("picking");
@@ -208,11 +346,13 @@
                 setTimeout(function(){
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick8").text(champions[randomnum]);
+                    player8 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick9").text(champions[randomnum]);
+                    player9 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
-                    $("#message").text("Player 10's turn to pick.");
+                    $("#message").text("The game is about to start.");
                     $("#pick8").toggleClass("picking");
                     $("#pick9").toggleClass("picking");
                     $("#pick10").toggleClass("picking");
@@ -220,18 +360,18 @@
                 setTimeout(function(){
                     var randomnum = Math.floor(Math.random() * champions.length);
                     $("#pick10").text(champions[randomnum]);
+                    player10 = champions[randomnum];
                     champions.splice( champions.indexOf( champions[randomnum]), 1 );
                     $("#pick10").toggleClass("picking");
                 }, 12000);
-                
-                
-                
-                /*for(i=1; i <= 10; i++){
-                    var randomnum = Math.floor(Math.random() * champions.length);
-                    $("#pick" + i).text(champions[randomnum]);
-                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
-                }*/
-                
+                setTimeout(function(){
+                    $(page).hide().css("opacity","0");
+                    $( "#game2" ).show().animate({
+                        opacity: 1
+                    }, 500);
+                    page = "#game2";
+                    gameslide2();
+                }, 14000);
             });
             
         }
