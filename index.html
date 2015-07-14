@@ -19,7 +19,7 @@
     </div>
     <div class="dontshow" id="game1">
         <h2>Picks &amp; Bans</h2>
-        <p>Player 1's turn to ban.</p>
+        <p id="message">Player 1's turn to ban.</p>
         <div id="leftbans">
             <div id="pick1" class="pickandban picking">
                 Player 1
@@ -35,6 +35,17 @@
             </div>
             <div id="pick9" class="pickandban">
                 Player 9
+            </div>
+            <div class="bans">
+                <div id="ban1" class="banbox">
+                   
+                </div>
+                <div id="ban3" class="banbox">
+                   
+                </div>
+                <div id="ban5" class="banbox">
+                   
+                </div>
             </div>
         </div>
         <div id="rightbans">
@@ -53,6 +64,17 @@
             <div id="pick10" class="pickandban">
                 Player 10
             </div>
+            <div class="bans">
+                <div id="ban2" class="banbox">
+                    
+                </div>
+                <div id="ban4" class="banbox">
+                   
+                </div>
+                <div id="ban6" class="banbox">
+                
+                </div>
+            </div>
         </div>
     </div>
     
@@ -66,6 +88,7 @@
             
             //variables
             var page = "#firstslide";
+            var champions = ["Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "Blitzcrank", "Brand", "Caitlyn", "Cassiopeia", "Cho'gath", "Corki", "Dr. Mundo", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Irelia", "Janna", "Jarvan IV", "Jax", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kennen", "Kog'Maw", "LeBlanc", "Lee Sin", "Leona", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "Master Yi", "Miss Fortune", "Mordekaiser", "Morgana", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Pantheon", "Poppy", "Rammus", "Renekton", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Talon", "Taric", "Teemo", "Tristana", "Trundle", "Trydamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xerath", "Xin Zhao", "Yorick", "Ziggs", "Zilean"];
             
             //hide every other page
             $(".dontshow").hide().css("opacity","0");
@@ -85,7 +108,130 @@
             });
             
             $("input[show='#game1']").click(function(){
-                //add stuff here. this is the start button.
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#ban1").text(champions[randomnum]);
+                    $("#message").text("Player 2's turn to ban.");
+                    $("#pick1").toggleClass("picking");
+                    $("#pick2").toggleClass("picking");
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                }, 1000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#ban2").text(champions[randomnum]);
+                    $("#message").text("Player 1's turn to ban.");
+                    $("#pick1").toggleClass("picking");
+                    $("#pick2").toggleClass("picking");
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                }, 2000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#ban3").text(champions[randomnum]);
+                    $("#message").text("Player 2's turn to ban.");
+                    $("#pick1").toggleClass("picking");
+                    $("#pick2").toggleClass("picking");
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                }, 3000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#ban4").text(champions[randomnum]);
+                    $("#message").text("Player 1's turn to ban.");
+                    $("#pick1").toggleClass("picking");
+                    $("#pick2").toggleClass("picking");
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                }, 4000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#ban5").text(champions[randomnum]);
+                    $("#message").text("Player 2's turn to ban.");
+                    $("#pick1").toggleClass("picking");
+                    $("#pick2").toggleClass("picking");
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                }, 5000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#ban6").text(champions[randomnum]);
+                    $("#message").text("Player 1's turn to pick.");
+                    $("#pick1").toggleClass("picking");
+                    $("#pick2").toggleClass("picking");
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                }, 6000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick1").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    $("#message").text("Player 2 and Player 3's turn to pick.");
+                    $("#pick1").toggleClass("picking");
+                    $("#pick2").toggleClass("picking");
+                    $("#pick3").toggleClass("picking");
+                    
+                }, 7000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick2").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick3").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    $("#message").text("Player 4 and Player 5's turn to pick.");
+                    $("#pick2").toggleClass("picking");
+                    $("#pick3").toggleClass("picking");
+                    $("#pick4").toggleClass("picking");
+                    $("#pick5").toggleClass("picking");
+                }, 8000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick4").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick5").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    $("#message").text("Player 6 and Player 7's turn to pick.");
+                    $("#pick4").toggleClass("picking");
+                    $("#pick5").toggleClass("picking");
+                    $("#pick6").toggleClass("picking");
+                    $("#pick7").toggleClass("picking");
+                }, 9000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick6").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick7").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    $("#message").text("Player 8 and Player 9's turn to pick.");
+                    $("#pick6").toggleClass("picking");
+                    $("#pick7").toggleClass("picking");
+                    $("#pick8").toggleClass("picking");
+                    $("#pick9").toggleClass("picking");
+                }, 10000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick8").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick9").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    $("#message").text("Player 10's turn to pick.");
+                    $("#pick8").toggleClass("picking");
+                    $("#pick9").toggleClass("picking");
+                    $("#pick10").toggleClass("picking");
+                }, 11000);
+                setTimeout(function(){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick10").text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                    $("#pick10").toggleClass("picking");
+                }, 12000);
+                
+                
+                
+                /*for(i=1; i <= 10; i++){
+                    var randomnum = Math.floor(Math.random() * champions.length);
+                    $("#pick" + i).text(champions[randomnum]);
+                    champions.splice( champions.indexOf( champions[randomnum]), 1 );
+                }*/
+                
             });
             
         }

@@ -14,7 +14,7 @@ div h2{
     border: 1px solid black;
     width: 10%;
     display: inline-block;
-    height: 60%;
+    height: 80%;
     overflow: hidden;
 }
 #leftbans{
@@ -27,10 +27,23 @@ div h2{
 }
 .pickandban{
     border: 1px solid black;
-    height: 19%;
+    height: 17.2%;
+    display: block;
+    margin: 5px;
+}
+.bans{
+    border: 1px solid black;
+    height: 9%;
     display: block;
     margin: 5px;
 }
 .picking{
     border: 1px dashed black;
+}
+.banbox{
+    height: 33.6%;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid black;
+    overflow: auto;
 }
