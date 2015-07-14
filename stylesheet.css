@@ -1,5 +1,6 @@
 body{
     font-family: arial;
+    background: url("bg.png");
 }
 #firstslide{
     text-align: center;
