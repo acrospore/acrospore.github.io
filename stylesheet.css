@@ -30,6 +30,7 @@ div h2{
     height: 17.2%;
     display: block;
     margin: 5px;
+    transition: 0.25s all;
 }
 .bans{
     border: 1px solid black;
@@ -47,6 +48,7 @@ div h2{
     display: block;
     border-bottom: 1px solid black;
     overflow: auto;
+    text-decoration: line-through;
 }
 #text2{
     opacity: 0.9;
@@ -77,4 +79,28 @@ div h2{
 }
 span{
     margin: 5px;
+}
+.choosenames{
+    display: inline-block;
+    width: 10%;
+    overflow: auto;
+}
+#choosenamesleft{
+    margin-left: auto;
+    margin-right: 5px;
+}
+#choosenamesright{
+    margin-right: auto;
+    margin-left: 5px;
+}
+.choosenamebox{
+    margin: 5px;
+}
+c{
+    position: relative;
+    display: block;
+    bottom: -25%;
+}
+.pickandban p{
+    text-decoration: underline;
 }
