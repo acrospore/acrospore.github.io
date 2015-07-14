@@ -1,0 +1,36 @@
+body{
+    font-family: arial;
+}
+#firstslide{
+    text-align: center;
+}
+div h2{
+    text-decoration: underline;
+}
+.dontshow{
+    text-align: center;
+}
+#leftbans, #rightbans{
+    border: 1px solid black;
+    width: 10%;
+    display: inline-block;
+    height: 60%;
+    overflow: hidden;
+}
+#leftbans{
+    margin-left: auto;
+    margin-right: 5px;
+}
+#rightbans{
+    margin-left: 5px;
+    margin-right: auto;
+}
+.pickandban{
+    border: 1px solid black;
+    height: 19%;
+    display: block;
+    margin: 5px;
+}
+.picking{
+    border: 1px dashed black;
+}

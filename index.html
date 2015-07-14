@@ -1,0 +1,93 @@
+<head>
+    <title>League Simulator</title>
+    <script src="jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="stylesheet.css" />
+</head>
+<body>
+    <p id="javascriptcheck">you do not have javascript enabled.</p>
+    <div id="firstslide">
+        <h2>League Simulator</h2>
+        <p>For when you are bored and want to simulate a league game.</p>
+        <input class="btn btn-success" show="#game1" type="button" value="Start">
+        <input class="btn btn-default" show="#aboutslide" type="button" value="About">
+    </div>
+    <div class="dontshow" id="aboutslide">
+        <h2>About</h2>
+        <p>deez nuts</p>
+        <input class="btn btn-default" show="#firstslide" type="button" value="Back">
+    </div>
+    <div class="dontshow" id="game1">
+        <h2>Picks &amp; Bans</h2>
+        <p>Player 1's turn to ban.</p>
+        <div id="leftbans">
+            <div id="pick1" class="pickandban picking">
+                Player 1
+            </div>
+            <div id="pick4" class="pickandban">
+                Player 4
+            </div>
+            <div id="pick5" class="pickandban">
+                Player 5
+            </div>
+            <div id="pick8" class="pickandban">
+                Player 8
+            </div>
+            <div id="pick9" class="pickandban">
+                Player 9
+            </div>
+        </div>
+        <div id="rightbans">
+            <div id="pick2" class="pickandban">
+                Player 2
+            </div>
+            <div id="pick3" class="pickandban">
+                Player 3
+            </div>
+            <div id="pick6" class="pickandban">
+                Player 6
+            </div>
+            <div id="pick7" class="pickandban">
+                Player 7
+            </div>
+            <div id="pick10" class="pickandban">
+                Player 10
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(ayylmao());
+        
+        function ayylmao(){
+            
+            //remove "you do not have javascript enabled"
+            $("#javascriptcheck").remove();
+            
+            //variables
+            var page = "#firstslide";
+            
+            //hide every other page
+            $(".dontshow").hide().css("opacity","0");
+            
+            //make the first page visible
+            $("#firstslide").css("opacity","0").animate({
+                opacity: 1
+            }, 500);
+            
+            //make buttons with show= attribute change the page
+            $(".btn").click(function(){
+                $(page).hide().css("opacity","0");
+                $( $(this).attr("show") ).show().animate({
+                    opacity: 1
+                }, 500);
+                page = $(this).attr("show");
+            });
+            
+            $("input[show='#game1']").click(function(){
+                
+            });
+            
+        }
+    </script>
+</body>
