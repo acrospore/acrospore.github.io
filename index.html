@@ -137,6 +137,8 @@
         //variables
         var page = "#firstslide";
         var champions = ["Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "Blitzcrank", "Brand", "Caitlyn", "Cassiopeia", "Cho'gath", "Corki", "Dr. Mundo", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Irelia", "Janna", "Jarvan IV", "Jax", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kennen", "Kog'Maw", "LeBlanc", "Lee Sin", "Leona", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "Master Yi", "Miss Fortune", "Mordekaiser", "Morgana", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Pantheon", "Poppy", "Rammus", "Renekton", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Talon", "Taric", "Teemo", "Tristana", "Trundle", "Trydamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xerath", "Xin Zhao", "Yorick", "Ziggs", "Zilean"];
+        
+        //[champ, name, kills, deaths]
         var player1 = []; //left
         var player2 = []; //right
         var player3 = []; //right
@@ -147,6 +149,10 @@
         var player8 = []; //left
         var player9 = []; //left
         var player10 = []; //right
+        
+        var blueteam = ["player1", "player4", "player5", "player8", "player9"];
+        var redteam = ["player2","player3","player6","player7","player10"];
+        
         var time = 0;
         
         //scores [kills, dragons, baron]
@@ -159,6 +165,9 @@
         var bot = [3, 3, true, true];
         //nexus turrets [blue, red]
         var spawn = [2, 2];
+        
+        //game variables
+        var invaded = false;
                 
         //hide every other page
         $(".dontshow").hide().css("opacity","0");
@@ -188,7 +197,7 @@
             $("#text4").text( $("#text3").text() );
             $("#text3").text( $("#text2").text() );
             $("#text2").text( $("#text1").text() );
-            $("#text1").text( text );
+            $("#text1").text( "[" + $("#timer").text() + "] " + text );
         }
         
         function gameslide2(){
@@ -206,60 +215,90 @@
                 }
                 
                 //RANDOM EVENTS
-                if( minutes == 0 && seconds == 50 ){
-                    var random = Math.floor( Math.random() * 4 ) + 1
+                if( minutes == 0 && seconds == 30 ){
+                    //WELCOME
+                    newEvent("Welcome to Summoner's Rift.");
+                }
+                if( minutes == 1 && seconds == 0 ){
+                    newEvent("30 Seconds until minions spawn.");
+                }
+                if( minutes == 0 && seconds == 45 && invaded == false ){
+                    var random = Math.floor( Math.random() * 6 ) + 1
                     if( random == 1 ){
                         newEvent("Blue team has invaded Red team!");
                         random = Math.floor( Math.random() * 2 ) + 1
                         if( random == 1 ){
                             setTimeout(function(){
-                                newEvent("It was successful, giving Blue team a kill.");
-                            }, 5000);
+                                random = Math.floor(Math.random() * blueteam.length);
+                                newEvent("It was successful, giving " + window[blueteam[random]][1] + " a kill.");
+                                bluescore[0]++;
+                                window[blueteam[random]][2]++;
+                            }, 10000);
                         } else {
                             random = Math.floor( Math.random() * 2 ) + 1
                             if( random == 1 ){
                                 setTimeout(function(){
                                     newEvent("It was unsuccessful, nobody died.");
-                                }, 5000);
+                                }, 10000);
                             } else {
                                 setTimeout(function(){
-                                    newEvent("It was unsuccessful, giving Red team a kill.");
-                                }, 5000);
+                                    random = Math.floor(Math.random() * redteam.length);
+                                    newEvent("It was unsuccessful, giving " + window[redteam[random]][1] + " a kill.");
+                                    redscore[0]++;
+                                    window[redteam[random]][2]++;
+                                }, 10000);
                             }
                         }
                     } else if( random == 2 ){
                         newEvent("Red team has invaded Blue team!");
                         random = Math.floor( Math.random() * 2 ) + 1
                         if( random == 1 ){
-                            setTimeout(newEvent("It was successful, giving Red team a kill."), 5000);
+                            setTimeout(function(){
+								random = Math.floor(Math.random() * redteam.length);
+                                newEvent("It was successful, giving " + window[redteam[random]][1] + " a kill.");
+                                redscore[0]++;
+                                window[redteam[random]][2]++;
+							}, 10000);
                         } else {
                             random = Math.floor( Math.random() * 2 ) + 1
                             if( random == 1 ){
                                 setTimeout(function(){
                                     newEvent("It was unsuccessful, nobody died.");
-                                }, 5000);
+                                }, 10000);
                             } else {
                                 setTimeout(function(){
-                                    newEvent("It was unsuccessful, giving Blue team a kill.");
-                                    
-                                }, 5000);
+                                    random = Math.floor(Math.random() * blueteam.length);
+                                    newEvent("It was unsuccessful, giving " + window[blueteam[random]][1] + " a kill.");
+                                    bluescore[0]++;
+                                    window[blueteam[random]][2]++;
+                                }, 10000);
                             }
                         }
                     } else if( random == 3 ){
-                        return false;
-                    } else if( random == 4 ){
                         newEvent("Both teams invaded!");
                         random = Math.floor( Math.random() * 5 ) + 1
                         setTimeout(function(){
                             switch(random){
                                 case 1:
                                     newEvent("Both teams started fighting and ended up with a 1-1 trade.");
+                                    random = Math.floor(Math.random() * blueteam.length);
+                                    bluescore[0]++;
+                                    window[blueteam[random]][1]++;
+                                    random = Math.floor(Math.random() * redteam.length);
+                                    redscore[0]++;
+                                    window[redteam[random]][2]++;
                                     break;
                                 case 2:
                                     newEvent("Both teams started fighting and Red team ended up getting a kill!");
+                                    random = Math.floor(Math.random() * redteam.length);
+                                    redscore[0]++;
+                                    window[redteam[random]][2]++;
                                     break;
                                 case 3:
                                     newEvent("Both teams started fighting and Blue team ended up getting a kill!");
+                                    random = Math.floor(Math.random() * blueteam.length);
+                                    bluescore[0]++;
+                                    window[blueteam[random]][2]++;
                                     break;
                                 case 4:
                                     newEvent("Both teams started fighting, but backed off. No deaths occurred.");
@@ -270,6 +309,7 @@
                             }
                         },5000);
                     }
+                    invaded = true;
                 }
                 if( minutes == 1 && seconds == 30 ){
                     newEvent("Minions have spawned.");
@@ -277,8 +317,7 @@
                     
             }, 1000);
             
-            //WELCOME
-            newEvent("Welcome to Summoner's Rift.");
+            
         }
         
         $("input[show='#game1']").click(function(){
