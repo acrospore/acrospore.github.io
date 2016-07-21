@@ -1,155 +1,204 @@
 <head>
-    <title>CS:GO Messup</title>
-    <script src="jquery-3.1.0.min.js"></script>
-    <style>
-        input{
-            margin-top: 10px;
-        }
-    </style>
+	<title>CS:GO Messup</title>
+	<script src="jquery-3.1.0.min.js">
+	</script>
+	<style>
+	       input{
+	           margin-top: 10px;
+	       }
+	</style>
 </head>
 <body>
-    <input type="range" id="sensmax" min="0" max="100"> Maximum Sensitivity Possible: <span id="sensmaxnum">50</span><br>
-    <label><input type="checkbox" id="rs" checked> Randomize Sensitivity</label><br>
-    <label><input type="checkbox" id="sts" checked> Chance to bind Space to Shoot</label><br>
-    <label><input type="checkbox" id="im" checked> Chance to Invert Mouse</label><br>
-    <label><input type="checkbox" id="mc" checked> Randomize Movement Controls</label><br>
-    <label><input type="checkbox" id="cs" checked> Chance to Disable Crosshair</label><br>
-    <label><input type="checkbox" id="rc" checked> Randomize Crosshair</label><br>
-    <label><input type="checkbox" id="gc"> Give StratRoulette-style challenge <i>Doesn't do anything yet</i></label><br>
-    <br><button style="margin-top: 25px; margin-bottom: 100px;">Mess up my CS:GO settings</button>
-    <div>
-        Movement Controls: <span id="1"></span><br>
-        Sensitivity: <span id="2"></span><br>
-        Random Crosshair: <span id="3"></span><br>
-        Crosshair Disabled: <span id="5"></span><br>
-        Inverted Mouse: <span id="4"></span><br>
-        Space to Shoot: <span id="6"></span><br>
-        
-        <textarea style="margin-top: 30px;" readonly="true" cols="50" rows="10"></textarea><br>
-        <i>You can copy everything and paste it into the console.<br>But, if at the end it doesn't say "Thanks for using my CS:GO Messup Tool! Have fun!" into the console, then you have not properly executed all of the commands.</i>
-    </div>
-    <script>
-        function randomIntFromInterval(min,max)
-        {
-            return Math.floor(Math.random()*(max-min+1)+min);
-        }
-        setInterval(function(){
-            $("#sensmaxnum").text($("#sensmax").val());
-        },10);
-        
-        var wasdcontrols = [
-            {
-                name: "Inverted WASD (w and s switched, a and d switched)",
-                console: "bind w +back;\nbind s +forward;\nbind a +moveright;\nbind d +moveleft;\n"
-            },
-            {
-                name: "Only W",
-                console: "unbind s;\nunbind d;\nunbind a;\nbind w +forward;\n"
-            },
-            {
-                name: "Broken Wrist (s is forward, a is back, q is left, z is right)",
-                console: "bind s +forward;\nbind a +back;\nbind z +moveright;\nbind q +moveleft;\nunbind w;\nunbind d;\n"
-            },
-            {
-                name: "Only Strafing (unbind w and s)",
-                console: "unbind s;\nunbind w;\nbind d +moveright;\nbind a +moveleft;\n"
-            }
-        ];
-        $("div").hide();
-        
-        $("button").click(function(){
-            var commands = ""; //used for textarea at bottom
-            
-            //space to shoot
-            if( $("#sts").is(":checked") ){
-                var yesno = Math.random() < 0.5 ? "+jump" : "+attack";
-                commands += "bind space " + yesno + ";\n";
-                if(yesno === "+jump"){
-                    $("#6").text("No");
-                    commands += "bind mouse1 +attack;\n"
-                } else {
-                    $("#6").text("Yes");
-                    commands += "unbind mouse1;\n";
-                }
-            }
-            
-            //inverted mouse
-            if( $("#im").is(":checked") ){
-                var pitch = Math.random() < 0.5 ? -0.022 : 0.022;
-                commands += "m_pitch " + pitch + ";\n";
-                if(pitch === -0.022){
-                    $("#4").text("Yes");
-                } else {
-                    $("#4").text("No");
-                }
-            }
-            
-            //randomize disable crosshair
-            if( $("#cs").is(":checked") ){
-                var dis = randomIntFromInterval(0, 1);
-                commands += "crosshair " + dis + ";\n";
-                if( dis === 1 ){
-                    $("#5").text("No");
-                } else {
-                    $("#5").text("Yes");
-                }
-            }
-            
-            //randomize crosshair
-            if( $("#rc").is(":checked") && commands.indexOf("crosshair 0") === -1 ){
-                //random crosshair color
-                commands += "cl_crosshaircolor 5;\ncl_crosshaircolor_b " + randomIntFromInterval(0,255) + ";\ncl_crosshaircolor_r " + randomIntFromInterval(0,255) + ";\ncl_crosshaircolor_g " + randomIntFromInterval(0,255) + ";\n";
-                
-                //random crosshair size
-                commands += "cl_crosshairsize " + randomIntFromInterval(1, 100) + ";\n";
-                
-                //random crosshair alpha
-                commands += "cl_crosshairalpha " + randomIntFromInterval(1, 255) + ";\n";
-                
-                //random crosshair thickness
-                commands += "cl_crosshairthickness " + randomIntFromInterval(0, 100) + ";\n";
-                
-                //random crosshair gap
-                commands += "cl_crosshairgap " + randomIntFromInterval(-100, 100) + ";\n";
-                
-                //random crosshair outline
-                commands += "cl_crosshair_drawoutline " + randomIntFromInterval(0, 1) + ";\n";
-                
-                //random crosshair outline thickness
-                commands += "cl_crosshair_outlinethickness " + randomIntFromInterval(0, 50) + ";\n";
-                
-                //crosshair dot
-                commands += "cl_crosshairdot " + randomIntFromInterval(0, 1) + ";\n";
-                
-                $("#3").text("Yes");
-            } else {
-                $("#3").text("No");
-            }
-            
-            //randomize movement controls
-            if($("#mc").is(":checked")){
-                var wasd = wasdcontrols[Math.floor(Math.random()*wasdcontrols.length)];
-                $("#1").text(wasd.name);
-                commands += wasd.console;
-            } else {
-                $("#1").text("Default");
-                commands += "bind w +forward;\nbind s +back;\nbind a +moveleft;\nbind d +moveright;\n"
-            }
-            
-            //randomize sens
-            if( $("#rs").is(":checked") ){
-                var sens = Math.random() * $("#sensmax").val();
-                $("#2").text(sens);
-                commands += "sensitivity " + sens + ";\n";
-            } else {
-                $("#2").text("Your choice")
-            }
-            
-            commands += "echo Thanks for using my CS:GO Messup Tool! Have fun!";
-            
-            //dont touch this stuff
-            $("textarea").val(commands);
-            $("div").slideDown();
-        });
-    </script>
+		<input id="sensmax" max="100" min="0" type="range"> Maximum Sensitivity
+		Possible: <span id="sensmaxnum">50</span><br>
+		<label><input checked id="rs" type="checkbox"> Randomize
+		Sensitivity</label><br>
+		<label><input checked id="sts" type="checkbox"> Chance to bind Space to
+		Shoot</label><br>
+		<label><input checked id="im" type="checkbox"> Chance to Invert
+		Mouse</label><br>
+		<label><input checked id="mc" type="checkbox"> Randomize Movement
+		Controls</label><br>
+		<label><input checked id="cs" type="checkbox"> Chance to Disable
+		Crosshair</label><br>
+		<label><input checked id="rc" type="checkbox"> Randomize
+		Crosshair</label><br>
+		<label><input id="gc" type="checkbox"> Give StratRoulette-style challenge
+		<i>Doesn't do anything yet</i></label><br>
+		<br>
+		<button id="randomize" style="margin-top: 25px; margin-bottom: 100px;">Mess
+		up my CS:GO settings</button>
+	<div>
+		Movement Controls: <span id="1"></span><br>
+		Sensitivity: <span id="2"></span><br>
+		Random Crosshair: <span id="3"></span><br>
+		Crosshair Disabled: <span id="5"></span><br>
+		Inverted Mouse: <span id="4"></span><br>
+		Space to Shoot: <span id="6"></span><br>
+		<textarea cols="50" readonly="true" rows="10" style=
+		"margin-top: 30px;"></textarea><br>
+		<i>You can copy everything and paste it into the console, but be careful, the command is known to be cut off when put into the console.<br>
+		If, at the end, it doesn't say <b>"Thanks for using my CS:GO Messup Tool!
+		Have fun!"</b> into the console, then you have not properly executed all of the
+		commands.<br>
+		<br>
+		Alternatively, you can click the download button and place it into the CS:GO
+		CFG directory and use the command 'exec messup' in console.</i><br>
+		<button id="download">Download the CFG</button>
+	</div>
+	<script>
+	       function saveTextAsFile()
+	{
+	   var textToWrite = $("textarea").val();
+	   var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+	   var fileNameToSaveAs = "messup.cfg";
+
+	   var downloadLink = document.createElement("a");
+	   downloadLink.download = fileNameToSaveAs;
+	   downloadLink.innerHTML = "Download File";
+	   if (window.webkitURL != null)
+	   {
+	       // Chrome allows the link to be clicked
+	       // without actually adding it to the DOM.
+	       downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+	   }
+	   else
+	   {
+	       // Firefox requires the link to be added to the DOM
+	       // before it can be clicked.
+	       downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+	       downloadLink.onclick = destroyClickedElement;
+	       downloadLink.style.display = "none";
+	       document.body.appendChild(downloadLink);
+	   }
+
+	   downloadLink.click();
+	}
+	       function randomIntFromInterval(min,max)
+	       {
+	           return Math.floor(Math.random()*(max-min+1)+min);
+	       }
+	       setInterval(function(){
+	           $("#sensmaxnum").text($("#sensmax").val());
+	       },10);
+	       
+	       var wasdcontrols = [
+	           {
+	               name: "Inverted WASD (w and s switched, a and d switched)",
+	               console: "bind w +back;\nbind s +forward;\nbind a +moveright;\nbind d +moveleft;\n"
+	           },
+	           {
+	               name: "Only W",
+	               console: "unbind s;\nunbind d;\nunbind a;\nbind w +forward;\n"
+	           },
+	           {
+	               name: "Broken Wrist (s is forward, a is back, q is left, z is right)",
+	               console: "bind s +forward;\nbind a +back;\nbind z +moveright;\nbind q +moveleft;\nunbind w;\nunbind d;\n"
+	           },
+	           {
+	               name: "Only Strafing (unbind w and s)",
+	               console: "unbind s;\nunbind w;\nbind d +moveright;\nbind a +moveleft;\n"
+	           }
+	       ];
+	       $("div").hide();
+	       
+	       $("#randomize").click(function(){
+	           var commands = ""; //used for textarea at bottom
+	           
+	           //space to shoot
+	           if( $("#sts").is(":checked") ){
+	               var yesno = Math.random() < 0.5 ? "+jump" : "+attack";
+	               commands += "bind space " + yesno + ";\n";
+	               if(yesno === "+jump"){
+	                   $("#6").text("No");
+	                   commands += "bind mouse1 +attack;\n"
+	               } else {
+	                   $("#6").text("Yes");
+	                   commands += "unbind mouse1;\n";
+	               }
+	           }
+	           
+	           //inverted mouse
+	           if( $("#im").is(":checked") ){
+	               var pitch = Math.random() < 0.5 ? -0.022 : 0.022;
+	               commands += "m_pitch " + pitch + ";\n";
+	               if(pitch === -0.022){
+	                   $("#4").text("Yes");
+	               } else {
+	                   $("#4").text("No");
+	               }
+	           }
+	           
+	           //randomize disable crosshair
+	           if( $("#cs").is(":checked") ){
+	               var dis = randomIntFromInterval(0, 1);
+	               commands += "crosshair " + dis + ";\n";
+	               if( dis === 1 ){
+	                   $("#5").text("No");
+	               } else {
+	                   $("#5").text("Yes");
+	               }
+	           }
+	           
+	           //randomize crosshair
+	           if( $("#rc").is(":checked") && commands.indexOf("crosshair 0") === -1 ){
+	               //random crosshair color
+	               commands += "cl_crosshaircolor 5;\ncl_crosshaircolor_b " + randomIntFromInterval(0,255) + ";\ncl_crosshaircolor_r " + randomIntFromInterval(0,255) + ";\ncl_crosshaircolor_g " + randomIntFromInterval(0,255) + ";\n";
+	               
+	               //random crosshair size
+	               commands += "cl_crosshairsize " + randomIntFromInterval(1, 100) + ";\n";
+	               
+	               //random crosshair alpha
+	               commands += "cl_crosshairalpha " + randomIntFromInterval(1, 255) + ";\n";
+	               
+	               //random crosshair thickness
+	               commands += "cl_crosshairthickness " + randomIntFromInterval(0, 100) + ";\n";
+	               
+	               //random crosshair gap
+	               commands += "cl_crosshairgap " + randomIntFromInterval(-100, 100) + ";\n";
+	               
+	               //random crosshair outline
+	               commands += "cl_crosshair_drawoutline " + randomIntFromInterval(0, 1) + ";\n";
+	               
+	               //random crosshair outline thickness
+	               commands += "cl_crosshair_outlinethickness " + randomIntFromInterval(0, 50) + ";\n";
+	               
+	               //crosshair dot
+	               commands += "cl_crosshairdot " + randomIntFromInterval(0, 1) + ";\n";
+	               
+	               $("#3").text("Yes");
+	           } else {
+	               $("#3").text("No");
+	           }
+	           
+	           //randomize movement controls
+	           if($("#mc").is(":checked")){
+	               var wasd = wasdcontrols[Math.floor(Math.random()*wasdcontrols.length)];
+	               $("#1").text(wasd.name);
+	               commands += wasd.console;
+	           } else {
+	               $("#1").text("Default");
+	               commands += "bind w +forward;\nbind s +back;\nbind a +moveleft;\nbind d +moveright;\n"
+	           }
+	           
+	           //randomize sens
+	           if( $("#rs").is(":checked") ){
+	               var sens = Math.random() * $("#sensmax").val();
+	               $("#2").text(sens);
+	               commands += "sensitivity " + sens + ";\n";
+	           } else {
+	               $("#2").text("Your choice")
+	           }
+	           
+	           commands += "echo Thanks for using my CS:GO Messup Tool! Have fun!";
+	           
+	           //dont touch this stuff
+	           $("textarea").val(commands);
+	           $("div").slideDown();
+	       });
+	       
+	       $("#download").click(function(){
+	           saveTextAsFile();
+	       });
+	</script>
 </body>
