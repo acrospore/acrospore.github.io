@@ -66,8 +66,10 @@
                 commands += "bind space " + yesno + ";\n";
                 if(yesno === "+jump"){
                     $("#6").text("No");
+                    commands += "bind mouse1 +attack;\n"
                 } else {
                     $("#6").text("Yes");
+                    commands += "unbind mouse1;\n";
                 }
             }
             
