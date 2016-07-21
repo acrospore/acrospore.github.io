@@ -1,0 +1,10 @@
+#hint{
+    margin-top: 764px;
+    text-align: center;
+    color: white;
+    display: none;
+}
+
+body{
+    overflow-y: hidden;
+}
