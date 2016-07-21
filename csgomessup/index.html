@@ -26,7 +26,7 @@
         Space to Shoot: <span id="6"></span><br>
         
         <textarea style="margin-top: 30px;" readonly="true" cols="50" rows="10"></textarea><br>
-        <i>You can copy everything and paste it into the console.</i>
+        <i>You can copy everything and paste it into the console.<br>But, if at the end it doesn't say "Thanks for using my CS:GO Messup Tool! Have fun!" into the console, then you have not properly executed all of the commands.</i>
     </div>
     <script>
         function randomIntFromInterval(min,max)
@@ -138,12 +138,12 @@
             if( $("#rs").is(":checked") ){
                 var sens = Math.random() * $("#sensmax").val();
                 $("#2").text(sens);
-                commands += "sensitivity " + sens + "; ";
+                commands += "sensitivity " + sens + ";\n";
             } else {
                 $("#2").text("Your choice")
             }
             
-            
+            commands += "echo Thanks for using my CS:GO Messup Tool! Have fun!";
             
             //dont touch this stuff
             $("textarea").val(commands);
