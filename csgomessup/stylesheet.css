@@ -1,0 +1,40 @@
+body{
+    font-family: arial;
+    padding: 0;
+    margin: 0;
+    background: #2B4A6F;
+}
+#config h1{
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 0;
+    text-shadow: 3px 3px black;
+}
+#config{
+    background: #2B4A6F;
+    color: #748BA7;
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+}
+#config button{
+    width: 100%;
+    border-radius: 5px;
+}
+#sensmax{
+    width: 100%;
+}
+#config ul{
+    list-style: none;
+}
+#result{
+    background: #143153;
+    color: #748BA7;
+    padding: 10px;
+    box-shadow: inset 0 0 10px #000000;
+}
+#result textarea{
+    margin-bottom: 25px;
+}

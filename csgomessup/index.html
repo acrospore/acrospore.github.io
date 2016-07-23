@@ -2,6 +2,7 @@
 	<title>CS:GO Messup</title>
 	<script src="jquery-3.1.0.min.js">
 	</script>
+    <link rel="stylesheet" href="stylesheet.css" />
 	<style>
 	       input{
 	           margin-top: 10px;
@@ -9,26 +10,21 @@
 	</style>
 </head>
 <body>
-		<input id="sensmax" max="100" min="0" type="range"> Maximum Sensitivity
-		Possible: <span id="sensmaxnum">50</span><br>
-		<label><input checked id="rs" type="checkbox"> Randomize
-		Sensitivity</label><br>
-		<label><input checked id="sts" type="checkbox"> Chance to bind Space to
-		Shoot</label><br>
-		<label><input checked id="im" type="checkbox"> Chance to Invert
-		Mouse</label><br>
-		<label><input checked id="mc" type="checkbox"> Randomize Movement
-		Controls</label><br>
-		<label><input checked id="cs" type="checkbox"> Chance to Disable
-		Crosshair</label><br>
-		<label><input checked id="rc" type="checkbox"> Randomize
-		Crosshair</label><br>
-		<label><input id="gc" type="checkbox"> Give StratRoulette-style challenge
-		<i>Doesn't do anything yet</i></label><br>
-		<br>
-		<button id="randomize" style="margin-top: 25px; margin-bottom: 100px;">Mess
-		up my CS:GO settings</button>
-	<div>
+    <div id="config">
+        <h1>CS:GO Messup</h1>
+		<input id="sensmax" max="100" min="0" type="range"> Maximum Sensitivity Possible: <span id="sensmaxnum">50</span><br><br>
+		<ul>
+            <li><label><input checked id="rs" type="checkbox"> Randomize Sensitivity</label><br></li>
+            <li><label><input checked id="sts" type="checkbox"> Chance to bind Space to Shoot</label><br></li>
+            <li><label><input checked id="im" type="checkbox"> Chance to Invert Mouse</label><br></li>
+            <li><label><input checked id="mc" type="checkbox"> Randomize Movement Controls</label><br></li>
+            <li><label><input checked id="cs" type="checkbox"> Chance to Disable Crosshair</label><br></li>
+            <li><label><input checked id="rc" type="checkbox"> Randomize Crosshair</label><br></li>
+            <li><label><input id="gc" type="checkbox"> Give StratRoulette-style challenge <i>Doesn't do anything yet</i></label><br></li>
+        </ul>
+		<br><button id="randomize" style="margin-top: 25px;">Randomize!</button>
+    </div>
+	<div id="result">
 		Movement Controls: <span id="1"></span><br>
 		Sensitivity: <span id="2"></span><br>
 		Random Crosshair: <span id="3"></span><br>
@@ -43,7 +39,7 @@
 		commands.<br>
 		<br>
 		Alternatively, you can click the download button and place it into the CS:GO
-		CFG directory and use the command 'exec messup' in console.</i><br>
+		CFG directory and use the command 'exec messup' in console.</i><br><br>
 		<button id="download">Download the CFG</button>
 	</div>
 	<script>
@@ -100,7 +96,7 @@
 	               console: "unbind s;\nunbind w;\nbind d +moveright;\nbind a +moveleft;\n"
 	           }
 	       ];
-	       $("div").hide();
+	       $("#result").hide();
 	       
 	       $("#randomize").click(function(){
 	           var commands = ""; //used for textarea at bottom
@@ -194,7 +190,7 @@
 	           
 	           //dont touch this stuff
 	           $("textarea").val(commands);
-	           $("div").slideDown();
+	           $("#result").slideDown();
 	       });
 	       
 	       $("#download").click(function(){
