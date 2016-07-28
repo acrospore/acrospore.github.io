@@ -1,0 +1,113 @@
+<head>
+    <title>WatchMojo Generator</title>
+    <link rel="stylesheet" href="stylesheet.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script src="jquery-3.1.0.min.js"></script>
+    <script src="numeral.min.js"></script>
+</head>
+<body>
+    <div id="topbar">
+        <div id="menubutton"></div>
+        <div id="logo"></div>
+        <input type="text" id="searchbar" />
+        <button id="sbutton">
+            <span></span>
+        </button>
+        <button id="submit">
+            Submit
+        </button>
+    </div>
+    <div id="picture">
+    </div>
+    <div id="watchmojo">
+        <h1>Top 10 Saddest Anime Deaths</h1>
+        <div id="avatar"></div>
+        <div id="username">WatchMojo.com <span id="verified"></span></div>
+        <div id="subscribe">
+            <span id="subicon"></span>
+            <span id="subtext">Subscribe</span>
+            <span id="subcount">12,420,428</span>
+        </div>
+        <div id="toolbar">
+            <div id="buttonsgroup">
+                <div id="addto" class="buttonhover">
+                    Add to
+                </div>
+                <div id="share" class="buttonhover">
+                    Share
+                </div>
+                <div id="more" class="buttonhover">
+                    More
+                </div>
+            </div>
+            <div id="viewcount">
+                <div id="views">
+                    <span id="vn">805,461</span> views
+                </div>
+                <div id="bars">
+                    <div id="likebar"></div>
+                    <div id="dislikebar"></div>
+                </div>
+                <div id="likebuttons">
+                    <span id="like">100</span>
+                    <span id="dislike">100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="desc">
+        <strong>Published on Jul 28, 2016</strong>
+        <div id="desctext">
+            <p>
+                Website made by prop. I did this out of boredom.
+            </p>
+            <br><br><br><br><br><br><br><br>
+            <table>
+                <tr>
+                    <td>Category</td>
+                    <td>Entertainment</td>
+                </tr>
+                <tr>
+                    <td>License</td>
+                    <td>Standard YouTube License</td>
+                </tr>
+            </table>
+        </div>
+        <div id="showml">SHOW MORE</div>
+    </div>
+    
+    
+    
+    
+    <script>
+        //show more button
+        var more = false;
+        $("#showml").click(function(){
+            if( $(this).text() === "SHOW LESS" ){
+                $("#desctext").css("height","50");
+                $(this).text("SHOW MORE")
+            } else {
+                $("#desctext").css("height","auto");
+                $(this).text("SHOW LESS")
+            }
+        });
+        
+        //randomize number of subscribers
+        var subs = Math.floor(Math.random() * 13000000);
+        $("#subcount").text( numeral(subs).format('0,0') );
+        
+        //randomize number of views
+        var viewnum = Math.floor(Math.random() * 13000000);
+        $("#vn").text( numeral(viewnum).format('0,0') );
+        
+        //randomize likes and dislikes
+        var likes = [0, 0]; //likes and dislikes
+        var totallikes = Math.floor( Math.random()*viewnum ); //gets random number of voters from total views
+        likes[0] = Math.floor( Math.random() * totallikes );
+        likes[1] = totallikes - likes[0];
+        $("#like").text( numeral(likes[0]).format('0,0') );
+        $("#likebar").css("width", numeral(likes[0] / totallikes).format('0.0000%') );
+        $("#dislike").text( numeral(likes[1]).format('0,0') );
+        $("#dislikebar").css("width", numeral(likes[1] / totallikes).format('0.0000%') );
+    </script>
+</body>
