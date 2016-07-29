@@ -17,10 +17,87 @@
             Submit
         </button>
     </div>
-    <div id="picture">
+    <div id="picture"></div>
+    <div id="suggested">
+        <h4>Up next</h4>
+        <ul id="firstul">
+            <li>
+                <div class="svid">
+                    <div class="thumb"></div>
+                    <div class="info">
+                        <div class="title">Randomize</div> <!--44 Characters MAX-->
+                        <div class="uploader">WatchMojo.com</div>
+                        <div class="views"><span class="actualviews"></span> views</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li>
+                <div class="svid">
+                    <div class="thumb"></div>
+                    <div class="info">
+                        <div class="title">MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</div> <!--44 Characters MAX-->
+                        <div class="uploader">WatchMojo.com</div>
+                        <div class="views"><span class="actualviews"></span> views</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="svid">
+                    <div class="thumb"></div>
+                    <div class="info">
+                        <div class="title">MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</div> <!--44 Characters MAX-->
+                        <div class="uploader">WatchMojo.com</div>
+                        <div class="views"><span class="actualviews"></span> views</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="svid">
+                    <div class="thumb"></div>
+                    <div class="info">
+                        <div class="title">MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</div> <!--44 Characters MAX-->
+                        <div class="uploader">WatchMojo.com</div>
+                        <div class="views"><span class="actualviews"></span> views</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="svid">
+                    <div class="thumb"></div>
+                    <div class="info">
+                        <div class="title">MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</div> <!--44 Characters MAX-->
+                        <div class="uploader">WatchMojo.com</div>
+                        <div class="views"><span class="actualviews"></span> views</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="svid">
+                    <div class="thumb"></div>
+                    <div class="info">
+                        <div class="title">MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</div> <!--44 Characters MAX-->
+                        <div class="uploader">WatchMojo.com</div>
+                        <div class="views"><span class="actualviews"></span> views</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="svid">
+                    <div class="thumb"></div>
+                    <div class="info">
+                        <div class="title">MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM</div> <!--44 Characters MAX-->
+                        <div class="uploader">WatchMojo.com</div>
+                        <div class="views"><span class="actualviews"></span> views</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
     <div id="watchmojo">
-        <h1>Top 10 Saddest Anime Deaths</h1>
+        <h1 id="title">Top 10 Saddest Anime Deaths</h1>
         <div id="avatar"></div>
         <div id="username">WatchMojo.com <span id="verified"></span></div>
         <div id="subscribe">
@@ -77,8 +154,6 @@
     </div>
     
     
-    
-    
     <script>
         //show more button
         var more = false;
@@ -97,8 +172,15 @@
         $("#subcount").text( numeral(subs).format('0,0') );
         
         //randomize number of views
-        var viewnum = Math.floor(Math.random() * 13000000);
-        $("#vn").text( numeral(viewnum).format('0,0') );
+        var viewnum;
+        function randViews( maxNum, element ){
+            viewnum = Math.floor(Math.random() * maxNum);
+            element.text( numeral(viewnum).format('0,0') );
+        }
+        randViews(13000000, $("#vn"));
+        $(".actualviews").each(function(){
+            randViews(13000000, $(this));
+        });
         
         //randomize likes and dislikes
         var likes = [0, 0]; //likes and dislikes
@@ -109,5 +191,13 @@
         $("#likebar").css("width", numeral(likes[0] / totallikes).format('0.0000%') );
         $("#dislike").text( numeral(likes[1]).format('0,0') );
         $("#dislikebar").css("width", numeral(likes[1] / totallikes).format('0.0000%') );
+        
+        //randomize title
+        var titles = ["Top 10 Saddest Moments in Anime", "Top 10 Saddest Anime Deaths", "Top 10 Anime Swordsmen", "Top 10 Anime Boss Battles"];
+        $("#title").text( titles[Math.floor(Math.random()*titles.length)] );
+        
+        //randomize image
+        
+        
     </script>
 </body>
